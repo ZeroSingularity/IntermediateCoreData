@@ -17,8 +17,6 @@ class CustomNavigationController: UINavigationController {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let lightRed = UIColor(red: 247/255, green: 66/255, blue: 82/255, alpha: 1)
         

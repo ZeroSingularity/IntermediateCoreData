@@ -12,9 +12,12 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        navigationItem.title = "Companies"
+        tableView.backgroundColor = .darkBlue
+        tableView.separatorColor = .white
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.tableFooterView = UIView()
         
+        navigationItem.title = "Companies"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
         
 //        setupNavigationStyle()
@@ -26,12 +29,31 @@ class ViewController: UITableViewController {
     
     func setupNavigationStyle() {
         navigationController?.navigationBar.isTranslucent = false
-        
-        let lightRed = UIColor(red: 247/255, green: 66/255, blue: 82/255, alpha: 1)
-        
-        navigationController?.navigationBar.barTintColor = lightRed
+        navigationController?.navigationBar.barTintColor = .lightRed
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView()
+        header.backgroundColor = .lightBlue
+        return header
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        cell.backgroundColor = .teal
+        cell.textLabel?.text = "SOME COMPANY NAME"
+        cell.textLabel?.textColor = .white
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 8
     }
 }
