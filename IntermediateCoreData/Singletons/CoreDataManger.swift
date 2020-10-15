@@ -13,7 +13,7 @@ struct CoreDataManager {
     // never gets reclaimed in memory by OS
     static let shared = CoreDataManager()
     
-    let persistenContainer: NSPersistentContainer = {
+    let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DataModels")
         container.loadPersistentStores { (storeDescription, err) in
             if let err = err {

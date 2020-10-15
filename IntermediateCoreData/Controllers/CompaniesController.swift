@@ -30,7 +30,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
     }
     
     private func fetchCompanies() {
-        let context = CoreDataManager.shared.persistenContainer.viewContext
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
         
         do {
@@ -84,5 +84,26 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return companies.count
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteItem = UIContextualAction(style: .destructive, title: "delete") { (action, view, bool) in
+            let company = self.companies[indexPath.row]
+            self.companies.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            context.delete(company)
+            do {
+                try context.save()
+            }catch let saveErr {
+                print("failed to delete company", saveErr)
+            }
+        }
+        
+        let editItem = UIContextualAction(style: .normal, title: "Edit") { (action, view, bool) in
+            print("edit")
+        }
+        let swipeAction = UISwipeActionsConfiguration(actions: [deleteItem, editItem])
+        return swipeAction
     }
 }

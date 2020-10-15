@@ -78,7 +78,7 @@ class CreateCompanyController: UIViewController {
     
     @objc private func handleSave() {
         // initialization of core data stack
-        let context = CoreDataManager.shared.persistenContainer.viewContext
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
         company.setValue(nameTextField.text, forKey: "name")
         
