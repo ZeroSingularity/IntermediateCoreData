@@ -7,17 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
-    var companies = [
-        Company(name: "Apple", founded: Date()),
-        Company(name: "Google", founded: Date()),
-        Company(name: "Facebook", founded: Date())
-    ]
+    var companies = [Company]()
+//    var companies = [
+//        Company(name: "Apple", founded: Date()),
+//        Company(name: "Google", founded: Date()),
+//        Company(name: "Facebook", founded: Date())
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        fetchCompanies()
         tableView.backgroundColor = .darkBlue
         tableView.separatorColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
@@ -25,6 +27,29 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         
         navigationItem.title = "Companies"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))        
+    }
+    
+    private func fetchCompanies() {
+        let persistentContainer = NSPersistentContainer(name: "DataModels")
+        persistentContainer.loadPersistentStores { (storeDescription, err) in
+            if let err = err {
+                fatalError("Loading of store failed: \(err)")
+            }
+        }
+        
+        let context = persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<CompanyExample>(entityName: "CompanyExample")
+        
+        do {
+            let companies = try context.fetch(fetchRequest)
+            
+            companies.forEach({ (company) in
+                print(company.name ?? "")
+            })
+            
+        } catch let fetchErr {
+            print("Failed to fetch companies:", fetchErr)
+        }
     }
     
     @objc func handleAddCompany() {
