@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C53DBC752537E4330055FB29 /* CoreDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53DBC742537E4330055FB29 /* CoreDataManger.swift */; };
 		C5CEEB11251C324C0073A04F /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CEEB10251C324C0073A04F /* CreateCompanyController.swift */; };
 		C5CEEB142537D4AE0073A04F /* DataModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5CEEB122537D4AE0073A04F /* DataModels.xcdatamodeld */; };
 		C5E2577725198D7C00BABE2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E2577625198D7C00BABE2A /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C53DBC742537E4330055FB29 /* CoreDataManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManger.swift; sourceTree = "<group>"; };
 		C5CEEB10251C324C0073A04F /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 		C5CEEB132537D4AE0073A04F /* DataModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModels.xcdatamodel; sourceTree = "<group>"; };
 		C5E2577325198D7C00BABE2A /* IntermediateCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntermediateCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +49,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C53DBC762537E8CE0055FB29 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				C53DBC742537E4330055FB29 /* CoreDataManger.swift */,
+			);
+			path = Singletons;
+			sourceTree = "<group>";
+		};
+		C53DBC772537E8E10055FB29 /* CoreDataModels */ = {
+			isa = PBXGroup;
+			children = (
+				C5CEEB122537D4AE0073A04F /* DataModels.xcdatamodeld */,
+			);
+			path = CoreDataModels;
+			sourceTree = "<group>";
+		};
 		C5E2576A25198D7C00BABE2A = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +84,8 @@
 		C5E2577525198D7C00BABE2A /* IntermediateCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				C53DBC772537E8E10055FB29 /* CoreDataModels */,
+				C53DBC762537E8CE0055FB29 /* Singletons */,
 				C5E25791251C2EE000BABE2A /* Models */,
 				C5E25790251C2ED800BABE2A /* Controllers */,
 				C5E2577625198D7C00BABE2A /* AppDelegate.swift */,
@@ -76,7 +96,6 @@
 				C5E2578425198D8000BABE2A /* Info.plist */,
 				C5E2577E25198D8000BABE2A /* Preview Content */,
 				C5E2578C251AED3600BABE2A /* UIColor+Theme.swift */,
-				C5CEEB122537D4AE0073A04F /* DataModels.xcdatamodeld */,
 			);
 			path = IntermediateCoreData;
 			sourceTree = "<group>";
@@ -178,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E2578D251AED3600BABE2A /* UIColor+Theme.swift in Sources */,
+				C53DBC752537E4330055FB29 /* CoreDataManger.swift in Sources */,
 				C5E2577725198D7C00BABE2A /* AppDelegate.swift in Sources */,
 				C5E2577925198D7C00BABE2A /* SceneDelegate.swift in Sources */,
 				C5CEEB11251C324C0073A04F /* CreateCompanyController.swift in Sources */,
