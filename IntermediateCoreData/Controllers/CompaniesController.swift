@@ -61,6 +61,12 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
+    func didEditCompany(company: Company) {
+        guard let row = companies.firstIndex(of: company) else { return }
+        let reloadIndexPath = IndexPath(row: row, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .fade)
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UIView()
         header.backgroundColor = .lightBlue
@@ -102,8 +108,21 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         
         let editItem = UIContextualAction(style: .normal, title: "Edit") { (action, view, bool) in
             print("edit")
+            let editCompanyController = CreateCompanyController()
+            editCompanyController.company = self.companies[indexPath.row]
+            editCompanyController.delegate = self
+            let navController = CustomNavigationController(rootViewController: editCompanyController)
+            navController.modalPresentationStyle = .fullScreen
+            self.present(navController, animated: true, completion: nil)
         }
+        
+        deleteItem.backgroundColor = .lightRed
+        editItem.backgroundColor = .darkBlue
         let swipeAction = UISwipeActionsConfiguration(actions: [deleteItem, editItem])
         return swipeAction
+    }
+    
+    private func editHandler(action: UIContextualAction) {
+        
     }
 }
