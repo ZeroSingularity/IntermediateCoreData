@@ -14,7 +14,7 @@ protocol CreateCompanyControllerDelegate {
     func didEditCompany(company: Company)
 }
 
-class CreateCompanyController: UIViewController {
+class CreateCompanyController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var delegate: CreateCompanyControllerDelegate?
     var company: Company? {
         didSet {
@@ -23,6 +23,14 @@ class CreateCompanyController: UIViewController {
             datePicker.date = founded
         }
     }
+    
+    lazy var companyImageView: UIImageView = {
+        let companyImage = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
+        companyImage.isUserInteractionEnabled = true
+        companyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectPhoto)))
+        companyImage.translatesAutoresizingMaskIntoConstraints = false
+        return companyImage
+    }()
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -44,7 +52,6 @@ class CreateCompanyController: UIViewController {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
         return datePicker
     }()
     
@@ -73,12 +80,20 @@ class CreateCompanyController: UIViewController {
             lightBlueBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
             lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 250)
+            lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 350)
+        ])
+        
+        view.addSubview(companyImageView)
+        NSLayoutConstraint.activate([
+            companyImageView.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor, constant: 10),
+            companyImageView.heightAnchor.constraint(equalToConstant: 100),
+            companyImageView.widthAnchor.constraint(equalToConstant: 100),
+            companyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
         view.addSubview(nameLabel)
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor),
+            nameLabel.topAnchor.constraint(equalTo: companyImageView.bottomAnchor),
             nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             nameLabel.widthAnchor.constraint(equalToConstant: 100),
             //        nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
@@ -100,6 +115,28 @@ class CreateCompanyController: UIViewController {
             datePicker.rightAnchor.constraint(equalTo: view.rightAnchor),
             datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor)
         ])
+    }
+    
+    @objc private func handleSelectPhoto() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.modalPresentationStyle = .fullScreen
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            companyImageView.image = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            companyImageView.image = originalImage
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func handleCancel() {
