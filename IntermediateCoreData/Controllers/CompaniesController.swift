@@ -26,6 +26,7 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         tableView.tableFooterView = UIView()
         
         navigationItem.title = "Companies"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))        
     }
     
@@ -47,7 +48,26 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         }
     }
     
-    @objc func handleAddCompany() {
+    @objc private func handleReset() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
+        
+        do {
+            try context.execute(batchDeleteRequest)
+            var indexPathstoRemove = [IndexPath]()
+            for (index, _) in companies.enumerated() {
+                let indexPath = IndexPath(row: index, section: 0)
+                indexPathstoRemove.append(indexPath)
+            }
+            
+            companies.removeAll()
+            tableView.deleteRows(at: indexPathstoRemove, with: .fade)
+        } catch let delErr {
+            print("Failed to delete companies:", delErr)
+        }
+    }
+    
+    @objc private func handleAddCompany() {
         let createCompanyController = CreateCompanyController()
         let navController = CustomNavigationController(rootViewController: createCompanyController)
         navController.modalPresentationStyle = .fullScreen
@@ -75,6 +95,19 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "No companies available..."
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return companies.count == 0 ? 150 : 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
