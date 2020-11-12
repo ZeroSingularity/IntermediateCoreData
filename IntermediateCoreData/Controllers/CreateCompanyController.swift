@@ -19,6 +19,9 @@ class CreateCompanyController: UIViewController, UIImagePickerControllerDelegate
     var company: Company? {
         didSet {
             nameTextField.text = company?.name
+            if let companyImage = company?.imageData {
+                companyImageView.image = UIImage(data: companyImage)
+            }
             guard let founded = company?.founded else { return }
             datePicker.date = founded
         }
@@ -26,6 +29,11 @@ class CreateCompanyController: UIViewController, UIImagePickerControllerDelegate
     
     lazy var companyImageView: UIImageView = {
         let companyImage = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
+        companyImage.contentMode = .scaleAspectFill
+        companyImage.layer.cornerRadius = companyImage.frame.width / 2
+        companyImage.layer.borderColor = UIColor.darkBlue.cgColor
+        companyImage.layer.borderWidth = 1
+        companyImage.clipsToBounds = true
         companyImage.isUserInteractionEnabled = true
         companyImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectPhoto)))
         companyImage.translatesAutoresizingMaskIntoConstraints = false
@@ -155,6 +163,11 @@ class CreateCompanyController: UIViewController, UIImagePickerControllerDelegate
         // initialization of core data stack
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+        if let companyImage = companyImageView.image {
+            let imageData = companyImage.jpegData(compressionQuality: 0.8)
+            company.setValue(imageData, forKey: "imageData")
+        }
+        
         company.setValue(nameTextField.text, forKey: "name")
         company.setValue(datePicker.date, forKey: "founded")
         
@@ -174,6 +187,10 @@ class CreateCompanyController: UIViewController, UIImagePickerControllerDelegate
         let context = CoreDataManager.shared.persistentContainer.viewContext
         company?.name = nameTextField.text
         company?.founded = datePicker.date
+        if let companyImage = companyImageView.image {
+            let imageData = companyImage.jpegData(compressionQuality: 0.8)
+            company?.imageData = imageData
+        }
         
         do {
             try context.save()
