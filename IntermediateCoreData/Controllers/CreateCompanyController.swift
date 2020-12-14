@@ -74,8 +74,8 @@ class CreateCompanyController: UIViewController, UIImagePickerControllerDelegate
         setupUI()
         
         view.backgroundColor = UIColor.darkBlue
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
-         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
+        setupCancelButtonInNavBar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
     
     private func setupUI() {
@@ -144,10 +144,6 @@ class CreateCompanyController: UIViewController, UIImagePickerControllerDelegate
             companyImageView.image = originalImage
         }
         
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func handleCancel() {
         dismiss(animated: true, completion: nil)
     }
     

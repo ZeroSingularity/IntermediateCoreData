@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C511E423255E13FB00B38EEC /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C511E422255E13FB00B38EEC /* CompanyCell.swift */; };
+		C52066692586A56600EAA84C /* EmployeesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52066682586A56600EAA84C /* EmployeesController.swift */; };
+		C520666D25870F6300EAA84C /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520666C25870F6300EAA84C /* UIViewController+Helpers.swift */; };
+		C52066702587111900EAA84C /* CreateEmployeeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C520666F2587111900EAA84C /* CreateEmployeeController.swift */; };
 		C53DBC752537E4330055FB29 /* CoreDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53DBC742537E4330055FB29 /* CoreDataManger.swift */; };
 		C5CEEB11251C324C0073A04F /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CEEB10251C324C0073A04F /* CreateCompanyController.swift */; };
 		C5CEEB142537D4AE0073A04F /* DataModels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5CEEB122537D4AE0073A04F /* DataModels.xcdatamodeld */; };
@@ -27,6 +30,9 @@
 
 /* Begin PBXFileReference section */
 		C511E422255E13FB00B38EEC /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
+		C52066682586A56600EAA84C /* EmployeesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesController.swift; sourceTree = "<group>"; };
+		C520666C25870F6300EAA84C /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
+		C520666F2587111900EAA84C /* CreateEmployeeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmployeeController.swift; sourceTree = "<group>"; };
 		C53DBC742537E4330055FB29 /* CoreDataManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManger.swift; sourceTree = "<group>"; };
 		C5CEEB10251C324C0073A04F /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 		C5CEEB132537D4AE0073A04F /* DataModels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModels.xcdatamodel; sourceTree = "<group>"; };
@@ -65,6 +71,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		C520666B25870F1500EAA84C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C520666C25870F6300EAA84C /* UIViewController+Helpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		C53DBC762537E8CE0055FB29 /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +114,7 @@
 		C5E2577525198D7C00BABE2A /* IntermediateCoreData */ = {
 			isa = PBXGroup;
 			children = (
+				C520666B25870F1500EAA84C /* Helpers */,
 				C5E86ED7255E29DD0030E9E1 /* Protocols */,
 				C5F331FD255B79B40065F006 /* Extensions */,
 				C53DBC762537E8CE0055FB29 /* Singletons */,
@@ -131,6 +146,8 @@
 			children = (
 				C5E2578A251AE0B000BABE2A /* CompaniesController.swift */,
 				C5CEEB10251C324C0073A04F /* CreateCompanyController.swift */,
+				C52066682586A56600EAA84C /* EmployeesController.swift */,
+				C520666F2587111900EAA84C /* CreateEmployeeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -233,10 +250,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E2578D251AED3600BABE2A /* UIColor+Theme.swift in Sources */,
+				C52066702587111900EAA84C /* CreateEmployeeController.swift in Sources */,
 				C5F331FF255B79D20065F006 /* UINavigationController.swift in Sources */,
 				C53DBC752537E4330055FB29 /* CoreDataManger.swift in Sources */,
 				C5E86ED9255E2A100030E9E1 /* CompaniesController+CreateCompany.swift in Sources */,
 				C5E2577725198D7C00BABE2A /* AppDelegate.swift in Sources */,
+				C52066692586A56600EAA84C /* EmployeesController.swift in Sources */,
 				C5E2577925198D7C00BABE2A /* SceneDelegate.swift in Sources */,
 				C5E86EDD255E2B760030E9E1 /* CompaniesController+UITableView.swift in Sources */,
 				C5CEEB11251C324C0073A04F /* CreateCompanyController.swift in Sources */,
@@ -244,6 +263,7 @@
 				C5CEEB142537D4AE0073A04F /* DataModels.xcdatamodeld in Sources */,
 				C511E423255E13FB00B38EEC /* CompanyCell.swift in Sources */,
 				C5E2577B25198D7C00BABE2A /* ContentView.swift in Sources */,
+				C520666D25870F6300EAA84C /* UIViewController+Helpers.swift in Sources */,
 				C5E2578F251C2E6D00BABE2A /* Company.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
